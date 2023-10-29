@@ -1,0 +1,11 @@
+# Vivado generated files
+*.cache/
+*.runs/
+*.srcs/
+*.data/
+*.xpr
+*.log
+*.jou
+*.hw
+*.sim/
+*_bd.tcl
