@@ -3,61 +3,79 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="N_bits_tb_behav.wdb" id="1">
+      <db_ref path="M_bits_tb_behav.wdb" id="1">
          <top_modules>
-            <top_module name="N_bits_tb" />
+            <top_module name="M_bits_tb" />
             <top_module name="glbl" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="160346667fs"></ZoomStartTime>
-      <ZoomEndTime time="268546668fs"></ZoomEndTime>
-      <Cursor1Time time="178380000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="2172000001fs"></ZoomEndTime>
+      <Cursor1Time time="318680000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="139"></NameColumnWidth>
-      <ValueColumnWidth column_width="177"></ValueColumnWidth>
+      <ValueColumnWidth column_width="169"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="9" />
-   <wvobject fp_name="/N_bits_tb/DATA" type="array">
-      <obj_property name="ElementShortName">DATA[23:0]</obj_property>
-      <obj_property name="ObjectShortName">DATA[23:0]</obj_property>
+   <WVObjectSize size="10" />
+   <wvobject fp_name="/M_bits_tb/DATA" type="array">
+      <obj_property name="ElementShortName">DATA[2:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">DATA[2:0][23:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/N_bits_tb/bit_counter" type="array">
+   <wvobject fp_name="/M_bits_tb/bit_counter" type="array">
       <obj_property name="ElementShortName">bit_counter[5:0]</obj_property>
       <obj_property name="ObjectShortName">bit_counter[5:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/N_bits_tb/SERIAL_IN" type="logic">
-      <obj_property name="ElementShortName">SERIAL_IN</obj_property>
-      <obj_property name="ObjectShortName">SERIAL_IN</obj_property>
+   <wvobject fp_name="/M_bits_tb/SERIAL_IN" type="array">
+      <obj_property name="ElementShortName">SERIAL_IN[2:0]</obj_property>
+      <obj_property name="ObjectShortName">SERIAL_IN[2:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/N_bits_tb/CLK_COUNT" type="logic">
+   <wvobject fp_name="/M_bits_tb/CLK_COUNT" type="logic">
       <obj_property name="ElementShortName">CLK_COUNT</obj_property>
       <obj_property name="ObjectShortName">CLK_COUNT</obj_property>
    </wvobject>
-   <wvobject fp_name="/N_bits_tb/CLK_SHIFT" type="logic">
+   <wvobject fp_name="/M_bits_tb/CLK_SHIFT" type="logic">
       <obj_property name="ElementShortName">CLK_SHIFT</obj_property>
       <obj_property name="ObjectShortName">CLK_SHIFT</obj_property>
    </wvobject>
-   <wvobject fp_name="/N_bits_tb/SHIFT" type="logic">
+   <wvobject fp_name="/M_bits_tb/SHIFT" type="logic">
       <obj_property name="ElementShortName">SHIFT</obj_property>
       <obj_property name="ObjectShortName">SHIFT</obj_property>
    </wvobject>
-   <wvobject fp_name="/N_bits_tb/STORE" type="logic">
+   <wvobject fp_name="/M_bits_tb/STORE" type="logic">
       <obj_property name="ElementShortName">STORE</obj_property>
       <obj_property name="ObjectShortName">STORE</obj_property>
    </wvobject>
-   <wvobject fp_name="/N_bits_tb/OUT" type="logic">
+   <wvobject fp_name="/M_bits_tb/OUT" type="logic">
       <obj_property name="ElementShortName">OUT</obj_property>
       <obj_property name="ObjectShortName">OUT</obj_property>
    </wvobject>
-   <wvobject fp_name="/N_bits_tb/S" type="array">
-      <obj_property name="ElementShortName">S[23:0]</obj_property>
-      <obj_property name="ObjectShortName">S[23:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
+   <wvobject fp_name="/M_bits_tb/S" type="array">
+      <obj_property name="ElementShortName">S[2:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">S[2:0][23:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/M_bits_tb/S[2]" type="array">
+         <obj_property name="ElementShortName">[2][23:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/M_bits_tb/S[1]" type="array">
+         <obj_property name="ElementShortName">[1][23:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/M_bits_tb/S[0]" type="array">
+         <obj_property name="ElementShortName">[0][23:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/M_bits_tb/N" type="array">
+      <obj_property name="ElementShortName">N[31:0]</obj_property>
+      <obj_property name="ObjectShortName">N[31:0]</obj_property>
    </wvobject>
 </wave_config>
