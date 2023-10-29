@@ -34,7 +34,7 @@ module N_bits_tb();
        end
        
        initial begin
-             DATA = 24'b1111_0000_1010_0101_0110_1001;
+             DATA = 24'b0000_0000_0000_0000_0000_0001;
        end
        
        always @(posedge CLK_SHIFT) begin
