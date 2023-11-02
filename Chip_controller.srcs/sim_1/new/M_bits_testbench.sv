@@ -3,12 +3,14 @@
 module M_bits_tb();
     parameter N = 24;
     reg [2:0][N-1:0] DATA;
+    reg [95:0] DATA_SIN;
     reg [5:0] bit_counter = 0; 
     reg [2:0] SERIAL_IN;
     reg CLK_COUNT, CLK_SHIFT, SHIFT,STORE;
     wire OUT;
     wire [2:0][N-1:0] S;
-    
+    integer MAX;
+    reg [7:0] COUNT_TO;
      M_bits DUT(
        .SERIAL_IN(SERIAL_IN),
        .CLK_COUNT(CLK_COUNT),
@@ -20,7 +22,7 @@ module M_bits_tb();
        
        initial begin
            STORE = 0;
-           SHIFT = 1;
+           //SHIFT = 1;
        end
        
        initial begin
@@ -38,10 +40,13 @@ module M_bits_tb();
              DATA[0] = 24'b1111_0000_0000_0000_0000_0000;
              DATA[1] = 24'b0000_0000_1111_0000_0000_0000;
              DATA[2] = 24'b0000_0000_0000_0000_1111_0000;
-       end
+             DATA_SIN = 96'b0001_00011100_000_000_000_000_001_001_001_001_000_000_000_000_010_010_010_010_000_000_000_000_100_100_100_100_000_000_000_000;
+             COUNT_TO = DATA_SIN[91:84];
+             SHIFT = DATA_SIN[92];
+       end  
        
        always @(posedge CLK_SHIFT) begin
-             if(bit_counter == N) begin
+             if(bit_counter == COUNT_TO) begin
                 SHIFT = ~SHIFT;
                 STORE = 1;
                 bit_counter = 0;
@@ -50,9 +55,9 @@ module M_bits_tb();
              end   
              else begin
                 bit_counter = bit_counter + 1;
-                SERIAL_IN[0] = DATA[0][N-bit_counter];
-                SERIAL_IN[1] = DATA[1][N-bit_counter];
-                SERIAL_IN[2] = DATA[2][N-bit_counter];
+                MAX = (3 * bit_counter) - 1;
+                SERIAL_IN = {DATA_SIN >> MAX, DATA_SIN >> MAX-1, DATA_SIN >> MAX-2};
+                $display("%b", SERIAL_IN);
              end 
          end
          
