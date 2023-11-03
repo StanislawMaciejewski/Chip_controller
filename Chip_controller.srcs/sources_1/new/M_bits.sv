@@ -4,8 +4,8 @@ module M_bits #(parameter M = 3)(
         input [M-1:0] SERIAL_IN,
         input CLK_COUNT,
         input CLK_SHIFT,
-        input SHIFT,
-        input STORE,
+        input [M-1:0] SHIFT,
+        input [M-1:0] STORE,
         output [M-1:0] OUT,
         output [M-1:0][23:0]S);
         
@@ -17,8 +17,8 @@ module M_bits #(parameter M = 3)(
                    .SERIAL_IN(SERIAL_IN[i]),
                    .CLK_COUNT(CLK_COUNT),
                    .CLK_SHIFT(CLK_SHIFT),
-                   .SHIFT(SHIFT),
-                   .STORE(STORE),
+                   .SHIFT(SHIFT[i]),
+                   .STORE(STORE[i]),
                    .OUT(OUT[i]),
                    .S(S[i])
              );
