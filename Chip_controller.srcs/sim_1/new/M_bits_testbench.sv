@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-`define ONE_COLUMN
+`define THREE_COLUMN
 `define BIT_24
 
 module M_bits_tb();
@@ -22,9 +22,9 @@ module M_bits_tb();
     reg [85:0] DATA_SIN;
     reg [5:0] bit_counter = 0; 
     reg [2:0] SERIAL_IN;
-    reg CLK_COUNT, CLK_SHIFT;
+    reg CLK_COUNT, CLK_SHIFT, CLK_CTL;
     reg [2:0] SHIFT,STORE;
-    wire OUT;
+    wire SOUT;
     wire [2:0][23:0] S;
     integer MAX;
     reg [7:0] COUNT_TO;
@@ -36,10 +36,11 @@ module M_bits_tb();
        .SERIAL_IN(SERIAL_IN),
        .CLK_COUNT(CLK_COUNT),
        .CLK_SHIFT(CLK_SHIFT),
+       .CLK_CTL(CLK_CTL),
        .SHIFT(SHIFT),
        .STORE(STORE),
-       .OUT(OUT),
-       .S(S));
+       .S(S),
+       .SOUT(SOUT));
        
        initial begin
            STORE = 3'b000;
@@ -49,12 +50,17 @@ module M_bits_tb();
        initial begin
            #1
            CLK_SHIFT=0;
-           forever #4 CLK_SHIFT = ~CLK_SHIFT;  
+           forever #12 CLK_SHIFT = ~CLK_SHIFT;  
        end
    
        initial begin
            CLK_COUNT=0;
-           forever #4 CLK_COUNT = ~CLK_COUNT;  
+           forever #12 CLK_COUNT = ~CLK_COUNT;  
+       end
+       
+       initial begin
+           CLK_CTL=0;
+           forever #4 CLK_CTL = ~CLK_CTL;  
        end
        
        initial begin
@@ -107,11 +113,10 @@ module M_bits_tb();
              M_SIZE = DATA_SIN[13:9];
              N_SIZE = DATA_SIN[8:4];
              STATE = DATA_SIN[3:0];
-             COUNT_TO = M_SIZE * N_SIZE;
        end  
        
        always @(posedge CLK_SHIFT) begin
-             if(bit_counter == 24) begin
+             if(bit_counter == N_SIZE) begin
                 SHIFT = ~SHIFT;
                 if(M_SIZE == 1) STORE = 3'b100;
                 else if (M_SIZE == 2) STORE = 3'b110;

@@ -4,11 +4,14 @@ module M_bits #(parameter M = 3)(
         input [M-1:0] SERIAL_IN,
         input CLK_COUNT,
         input CLK_SHIFT,
+        input CLK_CTL,
         input [M-1:0] SHIFT,
         input [M-1:0] STORE,
-        output [M-1:0] OUT,
-        output [M-1:0][23:0]S);
+        output [M-1:0][23:0]S,
+        output SOUT);
         
+        
+        wire [M-1:0] OUT;
         
         genvar i; 
         generate 
@@ -24,5 +27,14 @@ module M_bits #(parameter M = 3)(
              );
             end
         endgenerate
+        
+        CTL control_logic(
+            .IN(OUT),
+            .CLK(CLK_SHIFT),
+            .SHIFT(~SHIFT[1]),
+            .SOUT(SOUT)
+        );
+        
+        
 endmodule
 
