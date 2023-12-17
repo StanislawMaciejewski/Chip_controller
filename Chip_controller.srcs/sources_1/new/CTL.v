@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module CTL #(parameter M = 3)(
+module CTL #(parameter M = 72)(
     input [M-1:0] IN,
     input CLK,
     input DATA_IN,
@@ -28,44 +28,36 @@ module CTL #(parameter M = 3)(
     output SOUT
     );
     
-    wire sel1, sel2, sel3;
-    wire dff1, dff2, dff3;
+    wire [M-1:0] sel;
+    wire [M-1:0] dff;
     
     SELECTOR SEL_0(
         .IN(IN[0]),
         .Q(DATA_IN),
         .SH_LD(SH_LD),
-        .OUT(sel1)
-    );
-        
-    digital_flip_flop PISO_DFF_0(
-        .D(sel1),
-        .C(CLK),
-        .Q(dff1)
-    );
-        
-    SELECTOR SEL_1(
-        .IN(IN[1]),
-        .Q(dff1),
-        .SH_LD(SH_LD),
-        .OUT(sel2)
-    );
-            
-    digital_flip_flop PISO_DFF_1(
-        .D(sel2),
-        .C(CLK),
-        .Q(dff2)
+        .OUT(sel[0])
     );
     
-   SELECTOR SEL_2(
-        .IN(IN[2]),
-        .Q(dff2),
-        .SH_LD(SH_LD),
-        .OUT(sel3)
-    );
+    genvar i; 
+    generate 
+        for (i = 0; i < M-1; i = i + 1) begin   
+            digital_flip_flop PISO_DFF_0(
+                .D(sel[i]),
+                .C(CLK),
+                .Q(dff[i])
+                );
+        
+            SELECTOR SEL_1(
+                .IN(IN[i+1]),
+                .Q(dff[i]),
+                .SH_LD(SH_LD),
+                .OUT(sel[i+1])
+            );
+       end
+    endgenerate
                    
     digital_flip_flop PISO_DFF_2(
-       .D(sel3),
+       .D(sel[M-1]),
        .C(CLK),
        .Q(SOUT));       
         

@@ -5,6 +5,7 @@ module M_bits #(parameter M = 3)(
         input CLK_COUNT,
         input CLK_SHIFT,
         input CLK_CTL,
+        input SH_LD,
         input [M-1:0] SHIFT,
         input [M-1:0] STORE,
         output [M-1:0][23:0]S,
@@ -29,11 +30,12 @@ module M_bits #(parameter M = 3)(
         endgenerate
         
         CTL control_logic(
-            .IN(OUT),
-            .CLK(CLK_SHIFT),
-            .SHIFT(~SHIFT[1]),
+            .IN(S),
+            .CLK(CLK_CTL),
+            .DATA_IN(),
+            .SH_LD(SH_LD),
             .SOUT(SOUT)
-        );
+        );  
         
         
 endmodule

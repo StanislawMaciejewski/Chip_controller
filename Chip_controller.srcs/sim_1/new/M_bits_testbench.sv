@@ -24,8 +24,11 @@ module M_bits_tb();
     reg [2:0] SERIAL_IN;
     reg CLK_COUNT, CLK_SHIFT, CLK_CTL;
     reg [2:0] SHIFT,STORE;
-    wire SOUT;
+    reg SHIFT_CTL;
+    reg SH_LD;
     wire [2:0][23:0] S;
+    wire SOUT;
+    
     integer MAX;
     reg [7:0] COUNT_TO;
     reg [4:0] M_SIZE;
@@ -37,6 +40,7 @@ module M_bits_tb();
        .CLK_COUNT(CLK_COUNT),
        .CLK_SHIFT(CLK_SHIFT),
        .CLK_CTL(CLK_CTL),
+       .SH_LD(SH_LD),
        .SHIFT(SHIFT),
        .STORE(STORE),
        .S(S),
@@ -62,6 +66,14 @@ module M_bits_tb();
            CLK_CTL=0;
            forever #4 CLK_CTL = ~CLK_CTL;  
        end
+       
+       initial fork
+           SH_LD=1; 
+           #320
+           SH_LD=0;
+           #326
+           SH_LD=1; 
+       join
        
        initial begin
              `ifdef THREE_COLUMN
@@ -115,7 +127,7 @@ module M_bits_tb();
              STATE = DATA_SIN[3:0];
        end  
        
-       always @(posedge CLK_SHIFT) begin
+       always @(posedge CLK_CTL) begin
              if(bit_counter == N_SIZE) begin
                 SHIFT = ~SHIFT;
                 if(M_SIZE == 1) STORE = 3'b100;
@@ -133,7 +145,25 @@ module M_bits_tb();
                 $display("%b", SERIAL_IN);
              end 
          end
-         
+        
+        always @(posedge CLK_SHIFT) begin
+          if(bit_counter == N_SIZE) begin
+             SHIFT = ~SHIFT;
+             if(M_SIZE == 1) STORE = 3'b100;
+             else if (M_SIZE == 2) STORE = 3'b110;
+             else if (M_SIZE == 3) STORE = 3'b111;
+             else STORE = 3'b000;
+             bit_counter = 0;
+             #2
+             STORE = 0;
+          end   
+          else begin
+             bit_counter = bit_counter + 1;
+             MAX = (M_SIZE * bit_counter) + 13;
+             SERIAL_IN = {DATA_SIN >> MAX, DATA_SIN >> MAX-1, DATA_SIN >> MAX-2};
+             $display("%b", SERIAL_IN);
+          end 
+        end 
          
         always @(posedge STORE) begin
             $display("DATA STORED");
